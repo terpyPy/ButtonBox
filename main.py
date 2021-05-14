@@ -63,11 +63,13 @@ def blink(event):
 
     # turn the LED off when a rising edge is detected
     elif event.edge == NeoTrellis.EDGE_FALLING:
-        #if event.number
-        #trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
-        pass
+        if event.number in gamePattern:
+            trellis.pixels[event.number] = OFF
     
-    # if guessesLeft == 0
+    if guessesLeft == 0:
+        pass
+        
+
         
 
 for i in range(16):
