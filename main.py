@@ -2,6 +2,7 @@
 
 import time
 import random
+from adafruit_seesaw.neopixel import NeoPixel
 import board
 from board import SCL, SDA
 import digitalio
@@ -34,14 +35,25 @@ PUSH_COLOR = GREEN
 ANIM_COLOR = WHITE
 
 COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE]
+gamePattern  = [0,3,5,10]
 
+guessesLeft = 3
 
 # this will be called when button events are received
 def blink(event):
     # turn the LED on when a rising edge is detected
     if event.edge == NeoTrellis.EDGE_RISING:
         if button.value:
-            trellis.pixels[event.number] = WHITE
+            # changed from "= WHITE" to "= PUSH_COLOR"
+            # sets color to desired value while button is pushed
+            # trellis.pixels[event.number] = PUSH_COLOR
+
+            if event.number in gamePattern: # so event number is the button pressed
+                trellis.pixels[event.number] = GREEN # we can set that button
+            else:
+                trellis.pixels[event.number] = RED # we can set that button
+            
+
         else:
             for j in range(16):
                 trellis.pixels[j] = ANIM_COLOR
@@ -51,7 +63,12 @@ def blink(event):
 
     # turn the LED off when a rising edge is detected
     elif event.edge == NeoTrellis.EDGE_FALLING:
-        trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
+        #if event.number
+        #trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
+        pass
+    
+    # if guessesLeft == 0
+        
 
 for i in range(16):
     # activate rising edge events on all keys
