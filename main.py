@@ -1,3 +1,5 @@
+#Authors Hunter Hannula, Cameron Kerley
+
 import time
 import random
 import board
