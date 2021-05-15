@@ -1,5 +1,5 @@
 # Button box Game: by, Hunter Hannula & Cameron Kerley
-A game to be played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
+A game played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
 	Model from a project by The Ruiz Brothers - https://learn.adafruit.com/neotrellis-box-game
 	NeoTrellis Feather LED game board - https://github.com/adafruit/Adafruit_Learning_System_Guides
 	CircuitPython - https://learn.adafruit.com/welcome-to-circuitpython
