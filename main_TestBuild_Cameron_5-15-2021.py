@@ -66,7 +66,6 @@ def blink(event):
         print("rem guess",guessesLeft)
         print("event number",event.number)
         print("prev wrong",prevWrongAnswers)
-
         #print("cur button is in prevWrong",event.number not in prevWrongAnswers)
         #
         if button.value:
@@ -76,20 +75,25 @@ def blink(event):
             # a button was pushed, now check if it is in the pattern
             if pressedNumber in gamePattern:
                 # button was correct, set to appropriate color
-                trellis.pixels[event.number] = rightColor
+                trellis.pixels[pressedNumber] = rightColor
 
             # if the pressed button is wrong or the length of array means first wrong input
-            elif (pressedNumber in prevWrongAnswers) or (len(prevWrongAnswers) == 1): 
-                # debug for the boolen's we are evaluating 
-                print("Debug_same_Wrong_Button_check:", str(pressedNumber in prevWrongAnswers) + '\n', 
-                    "Debug_ARRAY_len_check:", str(len(prevWrongAnswers) == 1))
-                # wrong answer already input, for logic and readability add 0 to guessesLeft 
+            elif (pressedNumber in prevWrongAnswers) or (len(prevWrongAnswers) == 1):
+               
+                if len(prevWrongAnswers) == 1 : # we have to capture this input because it is a wrong input
+                    print("Debug_ARRAY_len_check:", True)
+                    trellis.pixels[pressedNumber] = wrongColor
+                    prevWrongAnswers.append(pressedNumber)
+                else:
+                    # debug for the boolen's we are evaluating 
+                    print("Debug_same_Wrong_Button_check:", True)
+                # wrong answer already input or is first input, for logic and readability add 0 to guessesLeft 
                 guessesLeft += 0
 
             else:
                # button was incorrect, set to appropriate color
-                trellis.pixels[event.number] = wrongColor
-                prevWrongAnswers.append(event.number)
+                trellis.pixels[pressedNumber] = wrongColor
+                prevWrongAnswers.append(pressedNumber)
                 guessesLeft -= 1
                 if guessesLeft == 0:
                     reset()
@@ -99,7 +103,6 @@ def blink(event):
     elif event.edge == NeoTrellis.EDGE_FALLING:
         #trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
         pass
-
 
 for i in range(16):
     # activate rising edge events on all keys
