@@ -75,14 +75,16 @@ def blink(event):
             # lets name the press event for naming convetion and readability  
             pressedNumber = event.number
 
-            # a button was pushed, now check if it is in the pattern
-            if pressedNumber in gamePattern:
+            # a button was pushed, now check if it is in the pattern and not already input
+            if (pressedNumber in gamePattern) and (pressedNumber not in prevRightAnswers):
                 # button was correct, set to appropriate color
                 trellis.pixels[pressedNumber] = rightColor
                 prevRightAnswers.append(pressedNumber)
                 if(len(prevRightAnswers) >= 5):
                     reset()
-
+            elif pressedNumber in gamePattern and pressedNumber in prevRightAnswers:
+                #pressed button was correct but already input, dont increase score, just chill
+                print("hey you already did that")
 
             # if the pressed button is wrong and has already been input dont do anything
             elif (pressedNumber in prevWrongAnswers):
