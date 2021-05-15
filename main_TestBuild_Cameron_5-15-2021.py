@@ -78,15 +78,11 @@ def blink(event):
                 trellis.pixels[pressedNumber] = rightColor
 
             # if the pressed button is wrong or the length of array means first wrong input
-            elif (pressedNumber in prevWrongAnswers) or (len(prevWrongAnswers) == 1):
+            elif (pressedNumber in prevWrongAnswers):
                
-                if len(prevWrongAnswers) == 1 : # we have to capture this input because it is a wrong input
-                    print("Debug_ARRAY_len_check:", True)
-                    trellis.pixels[pressedNumber] = wrongColor
-                    prevWrongAnswers.append(pressedNumber)
-                else:
-                    # debug for the boolen's we are evaluating 
-                    print("Debug_same_Wrong_Button_check:", True)
+
+                # debug for the boolen's we are evaluating 
+                print("Debug_same_Wrong_Button_check:", True)
                 # wrong answer already input or is first input, for logic and readability add 0 to guessesLeft 
                 guessesLeft += 0
 
