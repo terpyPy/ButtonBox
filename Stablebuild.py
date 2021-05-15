@@ -36,7 +36,8 @@ rightColor = GREEN
 wrongColor = RED
 
 COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE]
-gamePattern  = [0,3,5,10]
+gamePattern  = [random.randrange(0,15),[random.randrange(0,15)],[random.randrange(0,15)],[random.randrange(0,15)]]
+print(gamePattern)
 
 showReset = True
 guessesLeft = 3
@@ -48,13 +49,15 @@ prevRightAnswers = [None]
 def reset():
     global guessesLeft
     global prevWrongAnswers
+    global gamePattern
     for j in range(16):
-                trellis.pixels[j] = animColor
-                time.sleep(.05)
-                trellis.pixels[j] = OFF
-                time.sleep(.05)
-                showReset = False # not sure if this is still used
+        trellis.pixels[j] = animColor
+    time.sleep(.15)
+    for i in range(16):
+        trellis.pixels[i] = OFF
     guessesLeft = 3
+    gamePattern  = [random.randrange(0,15),[random.randrange(0,15)],[random.randrange(0,15)],[random.randrange(0,15)]]
+    print(gamePattern)
     prevWrongAnswers.clear()
     prevRightAnswers.clear()
     prevWrongAnswers.append(None)
@@ -70,7 +73,6 @@ def blink(event):
         print("event number",event.number)
         print("prev wrong",prevWrongAnswers)
         #print("cur button is in prevWrong",event.number not in prevWrongAnswers)
-        #
         if button.value:
             # lets name the press event for naming convetion and readability  
             pressedNumber = event.number
@@ -91,13 +93,13 @@ def blink(event):
                
 
                 # debug for the boolen's we are evaluating 
-                print("Debug_SAME_Wrong_Button_check:", True)
+                #print("Debug_SAME_Wrong_Button_check:", True)
                 # wrong answer already input or is first input, for logic and readability add 0 to guessesLeft 
                 guessesLeft += 0
 
             else:
-               # button was incorrect, set to appropriate color
-                print("Debug_DIFFERENT_Wrong_Button_check:", True)
+                # button was incorrect, set to appropriate color
+                #print("Debug_DIFFERENT_Wrong_Button_check:", True)
                 trellis.pixels[pressedNumber] = wrongColor
                 prevWrongAnswers.append(pressedNumber)
                 guessesLeft -= 1
