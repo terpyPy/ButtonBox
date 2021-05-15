@@ -1,12 +1,16 @@
-# Button box Game: by, Hunter Hannula & Cameron Kerley
-•	A game played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
-https://user-images.githubusercontent.com/66324329/118368615-7e02a800-b570-11eb-9e35-730e14dffe17.mp4
+
+# Button box Game: by, Hunter Hannula & Cameron Kerley: 
+
+https://user-images.githubusercontent.com/66324329/118369233-100ab080-b571-11eb-98d8-64d569f4741a.mp4
+
+
+• A game played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
 
 	1.	Model from a project by The Ruiz Brothers: https://learn.adafruit.com/neotrellis-box-game
 	3.	NeoTrellis Feather LED game board: https://github.com/adafruit/Adafruit_Learning_System_Guides
 	4.	CircuitPython: https://learn.adafruit.com/welcome-to-circuitpython
-
-•	Game Logic:
+	
+• Game Logic:
 
 	1.	generate a pattern at the start of the game
 
@@ -16,7 +20,7 @@ https://user-images.githubusercontent.com/66324329/118368615-7e02a800-b570-11eb-
 
 	4.	After a set amount guesses reset and gen a new pattern.
 
-•	Sudo code for main project
+• Sudo code for main project
 
 	-Programflow:
 
