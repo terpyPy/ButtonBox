@@ -45,14 +45,13 @@ def blink(event):
     # turn the LED on when a rising edge is detected
     if event.edge == NeoTrellis.EDGE_RISING:
         if button.value:
-            # changed from "= WHITE" to "= PUSH_COLOR"
-            # sets color to desired value while button is pushed
-            # trellis.pixels[event.number] = PUSH_COLOR
-
-            if event.number in gamePattern: # so event number is the button pressed
-                trellis.pixels[event.number] = rightColor # we can set that button
+            # a button was pushed, now check if it is in the pattern 
+            if event.number in gamePattern: 
+                # button was correct, set to appropriate color
+                trellis.pixels[event.number] = rightColor
             else:
-                trellis.pixels[event.number] = wrongColor # we can set that button
+                # button was incorrect, set to appropriate color
+                trellis.pixels[event.number] = wrongColor 
             
         # otherwise show reset animation
         else:
