@@ -2,8 +2,7 @@
 •	A game played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
 1.	Model from a project by The Ruiz Brothers: https://learn.adafruit.com/neotrellis-box-game
 2.	NeoTrellis Feather LED game board: https://github.com/adafruit/Adafruit_Learning_System_Guides
-3.	CircuitPython: 
-https://learn.adafruit.com/welcome-to-circuitpython
+3.	CircuitPython: https://learn.adafruit.com/welcome-to-circuitpython
 •	Game Logic:
 
 1.	generate a pattern at the start of the game
