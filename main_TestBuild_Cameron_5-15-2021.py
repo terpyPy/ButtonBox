@@ -82,12 +82,13 @@ def blink(event):
                
 
                 # debug for the boolen's we are evaluating 
-                print("Debug_same_Wrong_Button_check:", True)
+                print("Debug_SAME_Wrong_Button_check:", True)
                 # wrong answer already input or is first input, for logic and readability add 0 to guessesLeft 
                 guessesLeft += 0
 
             else:
                # button was incorrect, set to appropriate color
+                print("Debug_DIFFERENT_Wrong_Button_check:", True)
                 trellis.pixels[pressedNumber] = wrongColor
                 prevWrongAnswers.append(pressedNumber)
                 guessesLeft -= 1
