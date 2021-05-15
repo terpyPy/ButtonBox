@@ -31,8 +31,9 @@ BLUE = (0, 0, 25)
 PURPLE = (18, 0, 25)
 WHITE = (127, 127, 127)
 
-PUSH_COLOR = GREEN
-ANIM_COLOR = WHITE
+animColor = WHITE
+rightColor = GREEN
+wrongColor = RED
 
 COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE]
 gamePattern  = [0,3,5,10]
@@ -49,27 +50,22 @@ def blink(event):
             # trellis.pixels[event.number] = PUSH_COLOR
 
             if event.number in gamePattern: # so event number is the button pressed
-                trellis.pixels[event.number] = GREEN # we can set that button
+                trellis.pixels[event.number] = rightColor # we can set that button
             else:
-                trellis.pixels[event.number] = RED # we can set that button
+                trellis.pixels[event.number] = wrongColor # we can set that button
             
-
+        # otherwise show reset animation
         else:
             for j in range(16):
-                trellis.pixels[j] = ANIM_COLOR
+                trellis.pixels[j] = animColor
                 time.sleep(.05)
                 trellis.pixels[j] = OFF
                 time.sleep(.05)
 
-    # turn the LED off when a rising edge is detected
+    # do falling edge (todo)
     elif event.edge == NeoTrellis.EDGE_FALLING:
-        if event.number in gamePattern:
-            trellis.pixels[event.number] = OFF
-    
-    if guessesLeft == 0:
+        #trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
         pass
-        
-
         
 
 for i in range(16):
@@ -81,7 +77,7 @@ for i in range(16):
     trellis.callbacks[i] = blink
 
     # cycle the LEDs on startup
-    trellis.pixels[i] = ANIM_COLOR
+    trellis.pixels[i] = animColor
     time.sleep(.05)
 
 for i in range(16):
