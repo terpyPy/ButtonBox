@@ -37,4 +37,7 @@
 		winGame   //all squares blink green three times
 		drawBoard
 
+# Demo of game start from pure software java version:
+https://user-images.githubusercontent.com/66324329/118368067-3af40500-b56f-11eb-829f-6de83c493353.mp4
+
 
