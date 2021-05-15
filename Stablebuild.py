@@ -38,8 +38,13 @@ COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE]
 gamePattern  = [0,3,5,10]
 
 guessesLeft = 3
-
-# this will be called when button events are received
+def reset():
+    for j in range(16):
+                    trellis.pixels[j] = ANIM_COLOR
+                    time.sleep(.05)
+                    trellis.pixels[j] = OFF
+                    time.sleep(.05)
+    # this will be called when button events are received
 def blink(event):
     # turn the LED on when a rising edge is detected
     if event.edge == NeoTrellis.EDGE_RISING:
@@ -52,14 +57,11 @@ def blink(event):
                 trellis.pixels[event.number] = GREEN # we can set that button
             else:
                 trellis.pixels[event.number] = RED # we can set that button
+                guessesLeft -= 1
             
 
-        else:
-            for j in range(16):
-                trellis.pixels[j] = ANIM_COLOR
-                time.sleep(.05)
-                trellis.pixels[j] = OFF
-                time.sleep(.05)
+        elif guessesLeft == 0:
+            reset()
 
     # turn the LED off when a rising edge is detected
     elif event.edge == NeoTrellis.EDGE_FALLING:
