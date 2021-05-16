@@ -1,0 +1,55 @@
+Based on: https://github.com/Gricha/neotrellis
+
+*****CLASSES*****
+Engine class: holds current state and send calls to activity objects, handles interrupts 
+*first create a static engine object globalEngine*
+	**Vars**
+	boardState: activity, menu (?idle state consumes all events in buffer during activity change)
+	currentActivity:
+	lastInputRead: time in ms (updated with each new input)
+	upTime (should be pulled from a board method): time since starting program
+	**Methods**
+	getGlobalEngine( ): //returns previously created global(static) engine
+	handlePress(keyEvent)
+	switch (boardState)
+	case: activity
+	engine.currentActivity = handleEvent(keyEvent, boardDriver)
+	setup( )
+	loop( )
+		inputInterval = upTime - lastInputRead
+		switch (boardState)
+		if inputInterval is greater than read interval (20ms?) -> readInput()
+		else just read input and do thing
+	changeState(newState)
+	startActivity(activityName)
+	finishActivity( )
+	readInput( )
+		lastInputRead = upTime
+		trellis.read()
+	showRefreshedBoard( ): //force board update by calling called by changeState( ) and setup( )
+
+✓ Board Driver class:  
+	**Methods**
+	setPixelColor(buttonIndex, color)
+	setPixelColor(x, y, color)
+	changeState(newBoardState)
+	showRefreshedBoard: force board update
+	startActivity( )
+	finishActivity( )
+
+✓ Registry class:
+// holds activitySpecifications which contain variables related to the given activity
+	**Methods**
+	patternGuess( )
+		name, etc
+	cellularAutomaton( ): user input based automaton
+	chromaKey ( ): display a colorful animation
+	pushActivities( ): push all previously declared activities to the list of all activities  
+
+✓ Main Menu Class: shows available activities from registry class and manages state changes
+	**Methods**
+	loop(engineDriver)
+	handleEvent(event, engineDriver)
+		// check if button pressed selected a valid activity, if so run that activity
+		engineDriver.startActivity(activities[event.number])
+
