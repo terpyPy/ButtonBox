@@ -1,7 +1,7 @@
 #Authors Hunter Hannula, Cameron Kerley
 
 import time
-import random
+import random # possibly remove, if we use random we should write a seprate module for those functions
 from adafruit_seesaw.neopixel import NeoPixel
 import board
 from board import SCL, SDA
@@ -31,44 +31,86 @@ BLUE = (0, 0, 25)
 PURPLE = (18, 0, 25)
 WHITE = (127, 127, 127)
 
-PUSH_COLOR = GREEN
-ANIM_COLOR = WHITE
+animColor = WHITE
+rightColor = GREEN
+wrongColor = RED
 
 COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE]
-gamePattern  = [0,3,5,10]
+gamePattern  = [random.randrange(0,15),[random.randrange(0,15)],[random.randrange(0,15)],[random.randrange(0,15)]]
+print(gamePattern)
 
+showReset = True
 guessesLeft = 3
+prevWrongAnswers = [None]
+prevRightAnswers = [None]
 
 # this will be called when button events are received
+
+def reset():
+    global guessesLeft
+    global prevWrongAnswers
+    global gamePattern
+    for j in range(16):
+        trellis.pixels[j] = animColor
+    time.sleep(.15)
+    for i in range(16):
+        trellis.pixels[i] = OFF
+    guessesLeft = 3
+    gamePattern  = [random.randrange(0,15),[random.randrange(0,15)],[random.randrange(0,15)],[random.randrange(0,15)]]
+    print(gamePattern)
+    prevWrongAnswers.clear()
+    prevRightAnswers.clear()
+    prevWrongAnswers.append(None)
+    prevRightAnswers.append(None)
+
+# TODO: run this code, write a new stack trace for the game logic
 def blink(event):
+    global guessesLeft
+    global prevWrongAnswers
     # turn the LED on when a rising edge is detected
     if event.edge == NeoTrellis.EDGE_RISING:
+        print("rem guess",guessesLeft)
+        print("event number",event.number)
+        print("prev wrong",prevWrongAnswers)
+        #print("cur button is in prevWrong",event.number not in prevWrongAnswers)
         if button.value:
-            # changed from "= WHITE" to "= PUSH_COLOR"
-            # sets color to desired value while button is pushed
-            # trellis.pixels[event.number] = PUSH_COLOR
+            # lets name the press event for naming convetion and readability  
+            pressedNumber = event.number
 
-            if event.number in gamePattern: # so event number is the button pressed
-                trellis.pixels[event.number] = GREEN # we can set that button
+            # a button was pushed, now check if it is in the pattern and not already input
+            if (pressedNumber in gamePattern) and (pressedNumber not in prevRightAnswers):
+                # button was correct, set to appropriate color
+                trellis.pixels[pressedNumber] = rightColor
+                prevRightAnswers.append(pressedNumber)
+                if(len(prevRightAnswers) >= 5):
+                    reset()
+            elif pressedNumber in gamePattern and pressedNumber in prevRightAnswers:
+                #pressed button was correct but already input, dont increase score, just chill
+                print("hey you already did that")
+
+            # if the pressed button is wrong and has already been input dont do anything
+            elif (pressedNumber in prevWrongAnswers):
+               
+
+                # debug for the boolen's we are evaluating 
+                #print("Debug_SAME_Wrong_Button_check:", True)
+                # wrong answer already input or is first input, for logic and readability add 0 to guessesLeft 
+                guessesLeft += 0
+
             else:
-                trellis.pixels[event.number] = RED # we can set that button
-            
+                # button was incorrect, set to appropriate color
+                #print("Debug_DIFFERENT_Wrong_Button_check:", True)
+                trellis.pixels[pressedNumber] = wrongColor
+                prevWrongAnswers.append(pressedNumber)
+                guessesLeft -= 1
+                if guessesLeft == 0:
+                    reset()
+                    #showReset = True
 
-        else:
-            for j in range(16):
-                trellis.pixels[j] = ANIM_COLOR
-                time.sleep(.05)
-                trellis.pixels[j] = OFF
-                time.sleep(.05)
-
-    # turn the LED off when a rising edge is detected
+    # TODO: do falling edge
     elif event.edge == NeoTrellis.EDGE_FALLING:
-        #if event.number
         #trellis.pixels[event.number] = random.choice([RED, YELLOW, GREEN, CYAN, BLUE, PURPLE])
         pass
-    
-    # if guessesLeft == 0
-        
 
 for i in range(16):
     # activate rising edge events on all keys
@@ -79,7 +121,7 @@ for i in range(16):
     trellis.callbacks[i] = blink
 
     # cycle the LEDs on startup
-    trellis.pixels[i] = ANIM_COLOR
+    trellis.pixels[i] = animColor
     time.sleep(.05)
 
 for i in range(16):
