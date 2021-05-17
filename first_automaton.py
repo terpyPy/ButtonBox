@@ -19,7 +19,7 @@ button_pin = board.D6
 
 button = digitalio.DigitalInOut(button_pin)
 button.direction = digitalio.Direction.INPUT
-button.pull = digitalio.Pull.DOWN
+button.pull = digitalio.Pull.UP
 
 # some color definitions
 OFF = (0, 0, 0)
@@ -34,6 +34,9 @@ COLORS = [RED, YELLOW, GREEN, CYAN, BLUE, PURPLE, OFF]
 
 boardArray = [OFF]*16
 
+def resetBoard():
+    for i in range(len(boardArray)):
+        trellis.pixels[i] = (OFF)
 
 def redrawBoard(colorArray):
     
@@ -49,7 +52,7 @@ def redrawBoard(colorArray):
 def blink(event):
     # turn the LED on when a rising edge is detected
     if event.edge == NeoTrellis.EDGE_RISING:
-        if button.value:
+        if not button.value:
             print("try redraw board")
             
     elif event.edge == NeoTrellis.EDGE_FALLING:
@@ -67,7 +70,12 @@ for i in range(16):
     time.sleep(.02)
     trellis.pixels[i] = (0, 0, 0)
     time.sleep(.02)
+
+
 while True:
+    # TODO debounce
+    if not button.value:
+        resetBoard()
     # call the sync function call any triggered callbacks
     trellis.sync()
     # try:
