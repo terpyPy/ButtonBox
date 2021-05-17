@@ -50,5 +50,8 @@ https://user-images.githubusercontent.com/66324329/118369233-100ab080-b571-11eb-
 # Demo of game start from pure software java version:
 https://user-images.githubusercontent.com/66324329/118368067-3af40500-b56f-11eb-829f-6de83c493353.mp4
 
+# Test package Abstraction chart:
+![DraftPackegeStructer](https://user-images.githubusercontent.com/66324329/118437126-0b98e180-b6b0-11eb-86d3-393a04a4331a.png)
+
 # gamestate visual Demo digram:
 ![boardDrawing](https://user-images.githubusercontent.com/66324329/118375883-98e61400-b592-11eb-891f-f6c603d98c80.png)
