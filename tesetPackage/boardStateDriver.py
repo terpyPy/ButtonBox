@@ -33,11 +33,12 @@ class boardState():
         # return the value of getRandomPatt
         return gameFunction.getRandomPatt()
     def clearArray(self):
+        # this will take more args when we find out which, 
         return boardChecks.reset(x.theBoard)
     
 
         
-
+# test case simulation comment out before unit test
 x = boardState([0] * 16)
 pattern = x.randomArray()
 print(pattern)

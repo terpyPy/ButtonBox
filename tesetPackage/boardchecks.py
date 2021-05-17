@@ -1,6 +1,3 @@
-
-
-
 def reset(theBoard):
     # get a copy of the board to modify and return
     newBoard = theBoard
@@ -8,11 +5,13 @@ def reset(theBoard):
     for boardIndex, val  in enumerate(newBoard): # enumerate gets the index and the value for each iteration of loop
         # if the value of boardIndex is == 1
         if val == 1:
-            print('_in_boardchecks____reset', val, boardIndex, 'successful reset')
+            print('_in_boardchecks____reset', val, boardIndex, 
+                    'successful reset')
             newBoard[boardIndex] = 0
         # else dont reset value, skip it and print debug
         else:
-            print('_in_boardchecks____reset', val, boardIndex, 'Off position found in reset!!!!!!')
+            print('_in_boardchecks____reset', val, boardIndex, 
+                    'Off position found in reset!!!!!!')
     # return the Board modified copy 
     return newBoard
 
