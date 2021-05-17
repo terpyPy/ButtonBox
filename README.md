@@ -1,8 +1,6 @@
 
 # Button box Game: by, Hunter Hannula & Cameron Kerley: 
 
-https://user-images.githubusercontent.com/66324329/118369233-100ab080-b571-11eb-98d8-64d569f4741a.mp4
-
 
 1. A game played on a NeoTrellis Feather LED game board built with CircuitPython and model from a project by The Ruiz Brothers:
 
