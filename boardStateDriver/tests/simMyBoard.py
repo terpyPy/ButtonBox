@@ -1,5 +1,5 @@
 
-def checkBoard(pattern, buttonPressed, boardArray):
+def simMyBoard(pattern, buttonPressed, boardArray):
     # get a copy of the board to modify and return
     newBoard = boardArray
     for buttonValue in range(len(boardArray)):
@@ -14,5 +14,5 @@ if __name__ == "__main__":
     gamePattern  = [2,3,5,10] # test case comment out before unit test
     gameBoard = [0] * 16 # test case comment out before unit test      
     for j in range(16):
-        checkBoard(gamePattern, j, gameBoard)
+        simMyBoard(gamePattern, j, gameBoard)
     print(gameBoard)

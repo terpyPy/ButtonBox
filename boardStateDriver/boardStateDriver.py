@@ -1,10 +1,9 @@
-import simMyBoard
-import boardChecks
-import gameFunction
+
+import boardFunc
 class boardState():
     # include the lower level abstraction modules we made and imported
-    boardChecks
-    gameFunction
+    
+    boardFunc
 
     
     # include all the named constants you know, leave as tuple cuz immutable
@@ -16,12 +15,16 @@ class boardState():
     BLUE = (0, 0, 25)
     PURPLE = (18, 0, 25)
     WHITE = (127, 127, 127)
-    def __init__(self, theBoard):
-    
-        # gives boardState access to the theBoard arg passed from init 
+    def __init__(self, theBoard, patternSize=4):
+        
+        # gives boardState access to the theBoard and patternSize arg passed from init 
         self.theBoard = theBoard
+        self.patternSize = patternSize # default is 4
         
         
+        self.prevWrongAnswers = [None]
+        self.prevRightAnswers = [None]
+        self.guessesLeft = 3
         
         # the init method takes one argument, the game board
         self.COLORS = [self.RED, self.YELLOW, self.GREEN, self.CYAN, self.BLUE, self.PURPLE]
@@ -31,19 +34,11 @@ class boardState():
     # random pattern game init
     def randomArray(self):
         # return the value of getRandomPatt
-        return gameFunction.getRandomPatt()
+        return boardFunc.randGamePattern(self.patternSize)
     def clearArray(self):
         # this will take more args when we find out which, 
-        return boardChecks.reset(x.theBoard)
+        return boardFunc.resetBoard(self.theBoard)
     
 
         
 # test case simulation comment out before unit test
-x = boardState([0] * 16)
-pattern = x.randomArray()
-print(pattern)
-for i in range(len(x.theBoard)):
-    x.theBoard = simMyBoard.checkBoard(pattern, i, x.theBoard)
-print(x.theBoard, "before reset")
-x.theBoard = x.clearArray()
-print(x.theBoard)
