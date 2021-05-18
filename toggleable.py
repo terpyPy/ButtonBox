@@ -46,7 +46,10 @@ boardArray = [OFF]*16
 gamePattern = [0,3,5,6,9,10,12,15]
 prevWrongAnswers = [None]
 prevRightAnswers = [None]
-
+# to port this game to my pkg we need too create a method that translates the pressed button to the game driver object thats our interfacewith the layer
+# after that change the logic so that it check the array game board representation from the driver and then start adding the extra reset and re draw fetuers needed
+# will also fixsome gloabel scope stuff puttin gamePattern boardArray guessesLeft prevWrongAnswers prevRightAnswers and all the constants for colorin the gameDriverObject
+#   -----Cameron, had to write this down came to me out of the blue watchin videos
 def resetBoard():
     global guessesLeft
     for i in range(len(boardArray)):
