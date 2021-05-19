@@ -1,4 +1,3 @@
-
 import boardFunc
 class boardState():
     # include the lower level abstraction modules we made and imported
@@ -15,16 +14,10 @@ class boardState():
     BLUE = (0, 0, 25)
     PURPLE = (18, 0, 25)
     WHITE = (127, 127, 127)
-    def __init__(self, theBoard, patternSize=4):
+    def __init__(self, theBoard):
         
         # gives boardState access to the theBoard and patternSize arg passed from init 
         self.theBoard = theBoard
-        self.patternSize = patternSize # default is 4
-        
-        
-        self.prevWrongAnswers = [None]
-        self.prevRightAnswers = [None]
-        self.guessesLeft = 3
         
         # the init method takes one argument, the game board
         self.COLORS = [self.RED, self.YELLOW, self.GREEN, self.CYAN, self.BLUE, self.PURPLE]
@@ -38,7 +31,6 @@ class boardState():
     def clearArray(self):
         # this will take more args when we find out which, 
         return boardFunc.resetBoard(self.theBoard)
-    
+    def redrawBoard(self, event):
+        return boardFunc.redrawBoard(self.theBoard, event)
 
-        
-# test case simulation comment out before unit test

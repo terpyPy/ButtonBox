@@ -13,9 +13,7 @@ def resetBoard(theBoard):
             print('_in_boardchecks____reset', val, boardIndex, 
                     'Off position found in reset!!!!!!')
     # return the Board modified copy
-     
     return newBoard
-
 
 if __name__ == "__main__":   
     i = [1] * 16
