@@ -1,4 +1,4 @@
-def redrawBoard(theBoard: list, event: int):
+def redrawBoard(theBoard, event):
     #
     # dict that contains the button numbers and corresponding neighbor cells 
     neighbors = {
