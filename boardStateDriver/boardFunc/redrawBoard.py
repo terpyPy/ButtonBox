@@ -1,12 +1,33 @@
-def redrawBoard(theBoard, event):
-    neighbors = {0:(1,4,5),1:(0,2,4,5,6),2:(1,3,5,6,7),3:(2,6,7),
-            4:(0,1,5,9,8),5:(0,1,2,4,6,8,9,10),6:(1,2,3,5,7,9,10,11),7:(3,2,6,10,11),8:(4,5,9,12,13),
-            9:(5,4,6,8,10,12,13,14),10:(5,6,7,9,11,13,14,15),11:(6,7,10,14,15),12:(8,9,13),13:(8,9,10,12,14),
-            14:(9,10,11,13,15),15:(10,11,14)}
+def redrawBoard(theBoard: list, event: int):
+    #
+    # dict that contains the button numbers and corresponding neighbor cells 
+    neighbors = {
+                0:[4, 1],
+                1:[5, 2, 0],
+                2:[1, 6, 3],
+                3:[7, 2],
+                4:[0, 8, 5],
+                5:[1, 4, 9, 6],
+                6:[2,5,10,7],
+                7:[6, 3,11],
+                8:[12, 9,4],
+                9:[5,8,13,10],
+                10:[6,9,14,11],
+                11:[7,10,15],
+                12:[8,13],
+                13:[12,9,14],
+                14:[13,10,15],
+                15:[11,14]
+                }
     keyPressed = event.number
     newBoard = theBoard
+    # turn of the pressed key
     newBoard[keyPressed] = 0
+    # get the range length of the list of neighbor cells 
     for i in range(len(neighbors[keyPressed])):
+        # pass the neighbors dict the key(which is the button pressed number)
+        # and the pass i for the index of the value of each neighbor cell and turn it on
         newBoard[neighbors[keyPressed][i]] = 1
     print(event.number)
+    # return the new board
     return newBoard

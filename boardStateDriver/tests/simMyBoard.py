@@ -1,4 +1,5 @@
-
+# play sudo game as simulation of the board and events, 
+# used to to prove the board state logic should be valid at the abstaction layer interface that is the boardStateDriver
 def simMyBoard(pattern, buttonPressed, boardArray):
     # get a copy of the board to modify and return
     newBoard = boardArray
@@ -11,8 +12,10 @@ def simMyBoard(pattern, buttonPressed, boardArray):
 
 # if run as a standalone script instead of imported run the test case    
 if __name__ == "__main__": 
-    gamePattern  = [2,3,5,10] # test case comment out before unit test
-    gameBoard = [0] * 16 # test case comment out before unit test      
+    # test case simulation
+    print('test cast is being simulated')
+    gamePattern  = [2,3,5,10] 
+    gameBoard = [0] * 16 
     for j in range(16):
         simMyBoard(gamePattern, j, gameBoard)
     print(gameBoard)

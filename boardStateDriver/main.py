@@ -19,7 +19,7 @@ button_pin = board.D6
 button = digitalio.DigitalInOut(button_pin)
 button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.UP
-
+# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
 x = boardStateDriver.boardState([0]*16)
 
 for i in range(16):
@@ -33,13 +33,17 @@ for i in range(16):
 for i in range(16):
     trellis.pixels[i] = x.OFF
 
+# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
 x.theBoard[randrange(0,15)] = 1
 
 while True:
+    # if you press the nuke button reset
     if not button.value:
-        x.theBoard = x.clearArray()
+        x.theBoard = x.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
         time.sleep(0.02)
     else:
+        # for the len of the board check the logical state of the button, 0 or 1
+        # and set it to the physical board,  WHITE or OFF
         for i in range(16):
             if x.theBoard[i] == 1:
                 trellis.pixels[i] = x.WHITE
