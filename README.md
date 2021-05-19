@@ -13,7 +13,7 @@
 
 
 - gamestate visual Demo digram:
-	![boardDrawing](https://user-images.githubusercontent.com/66324329/118375883-98e61400-b592-11eb-891f-f6c603d98c80.png)
+![boardDrawing](https://user-images.githubusercontent.com/66324329/118375883-98e61400-b592-11eb-891f-f6c603d98c80.png)
 	
 - Game Logic:
 
