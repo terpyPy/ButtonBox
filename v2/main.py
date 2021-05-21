@@ -38,6 +38,11 @@ x.theBoard[randrange(0,15)] = 1
 
 while True:
     # if you press the nuke button reset
+    if not 1 in x.theBoard:
+        x.theBoard = x.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
+        time.sleep(0.02)
+        x.theBoard[randrange(0,15)] = 1
+        time.sleep(0.02)
     if not button.value:
         x.theBoard = x.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
         time.sleep(0.02)
