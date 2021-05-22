@@ -19,7 +19,7 @@ def gameLogic(theBoard, event, onColor, offColor):
                 14:[13,10,15],
                 15:[11,14]
                 }
-    keyPressed = event.number
+    keyPressed = event
     newBoard = theBoard
     # turn off the pressed key
     newBoard[keyPressed] = offColor

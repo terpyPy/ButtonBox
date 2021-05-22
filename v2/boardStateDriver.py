@@ -50,17 +50,21 @@ class boardState():
 
     def clearArray(self):
         self.theBoard = boardFunc.resetBoard(self.theBoard, self.offColor, self.onColor)
-        
-    def doGameLogic(self, event):
+    # add an optional argument for simulation which sets event = to a normal int value not .numbers
+    def doGameLogic(self, event, sim=False):
         self.timePressed = time.time()
         # takes theboard and "event" or pressed button as an argument,
         # and returns the updated board state
+        if sim:
+            pressedButton = event
+        else:
+            pressedButton = event.number
         if self.debounce():
-            print("event number:",event.number)
+            print("event number:",pressedButton)
             print("prev pressed:",self.previousButtonPressed)
-            if not event.number == self.previousButtonPressed:
-                self.previousButtonPressed = event.number
-                self.theBoard = boardFunc.gameLogic(self.theBoard, event, self.onColor, self.offColor)
+            if not pressedButton == self.previousButtonPressed:
+                self.previousButtonPressed = pressedButton
+                self.theBoard = boardFunc.gameLogic(self.theBoard, pressedButton, self.onColor, self.offColor)
                 if self.checkWin():
                     print("win condition met logically")
                     for i in range(16):
