@@ -31,7 +31,5 @@ def gameLogic(theBoard, event, onColor, offColor):
             newBoard[neighbors[keyPressed][i]] = onColor
         elif theBoard[neighbors[keyPressed][i]] == onColor:
             newBoard[neighbors[keyPressed][i]] = offColor
-
-    print(keyPressed)
     # return the new board
     return newBoard

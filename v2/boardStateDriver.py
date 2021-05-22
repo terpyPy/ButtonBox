@@ -29,26 +29,42 @@ class boardState():
         self.previousTimePressed = None
         self.timePressed = None
 
+        self.previousButtonPressed = None
 
-    def timeBetweenPress(self):#first press will always be smaller then second
+
+    def debounce(self):#first press will always be smaller then second
         timebetween = int(time.time()) - self.timePressed
         if timebetween >= 0.2:
             return 'tooFast' # return toFast str if true
         else:
             return True # else return true, the time between pressed is valid
 
+    def checkWin(self):
+        if self.onColor not in self.theBoard:
+           return True
+
     # random pattern game init
     def randomArray(self):
         # return the value of getRandomPatt
         return boardFunc.randGamePattern(self.patternSize)
 
-    def clearArray(self, offColor, onColor):
-        self.theBoard = boardFunc.resetBoard(self.theBoard, offColor, onColor)
+    def clearArray(self):
+        self.theBoard = boardFunc.resetBoard(self.theBoard, self.offColor, self.onColor)
         
-    def gameLogic(self, event):
+    def doGameLogic(self, event):
         self.timePressed = time.time()
         # takes theboard and "event" or pressed button as an argument,
         # and returns the updated board state
-        if self.timeBetweenPress():
-            return boardFunc.gameLogic(self.theBoard, event, self.onColor, self.offColor)
+        if self.debounce():
+            print("event number:",event.number)
+            print("prev pressed:",self.previousButtonPressed)
+            if not event.number == self.previousButtonPressed:
+                self.previousButtonPressed = event.number
+                self.theBoard = boardFunc.gameLogic(self.theBoard, event, self.onColor, self.offColor)
+                if self.checkWin():
+                    print("win condition met logically")
+                    for i in range(16):
+                        self.theBoard[i] = self.GREEN
+                    #print(self.theBoard)
+
 
