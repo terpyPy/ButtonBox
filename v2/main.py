@@ -1,64 +1,45 @@
-import boardStateDriver, tests
+import boardStateDriver
 import time
-from random import randrange
 from adafruit_seesaw.neopixel import NeoPixel
 import board
 from board import SCL, SDA
 import digitalio
 import busio
 from adafruit_neotrellis.neotrellis import NeoTrellis
+from random import randrange
 
 # create the i2c object for the trellis
-i2c_bus = busio.I2C(SCL, SDA)
+i2c_bus = busio.I2C(SCL, SDA)   
 
 # create the trellis
-trellis = NeoTrellis(i2c_bus)
+theTrellis = NeoTrellis(i2c_bus)
 
 button_pin = board.D6
 
 button = digitalio.DigitalInOut(button_pin)
 button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.UP
-# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
-x = boardStateDriver.boardState([0]*16)
-
-for i in range(16):
-    # activate rising edge events on all keys
-    trellis.activate_key(i, NeoTrellis.EDGE_RISING)
-    # activate falling edge events on all keys
-    #trellis.activate_key(i, NeoTrellis.EDGE_FALLING)
-    # set all keys to trigger the blink callback
-    trellis.callbacks[i] = x.redrawBoard
-
-for i in range(16):
-    trellis.pixels[i] = x.OFF
 
 # ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
-x.theBoard[randrange(0,15)] = 1
+boardDriver = boardStateDriver.boardState([(0,0,0)]*16)
+
+for i in range(16):
+    theTrellis.activate_key(i, NeoTrellis.EDGE_RISING)
+    theTrellis.callbacks[i] = boardDriver.gameLogic
+
+# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
+boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
+
+for i in range(16):
+    theTrellis.pixels[i] = boardDriver.OFF
 
 while True:
+    time.sleep(0.02)
     # if you press the nuke button reset
-    if not 1 in x.theBoard:
-        x.theBoard = x.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
-        time.sleep(0.02)
-        x.theBoard[randrange(0,15)] = 1
-        time.sleep(0.02)
     if not button.value:
-        x.theBoard = x.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
-        time.sleep(0.02)
-        x.theBoard[randrange(0,15)] = 1
-        time.sleep(0.02)
+        boardDriver.clearArray()# ALWAYS PASS x.theBoard TO ITS SELF WHEN CHANGING STATE!!!!!!!!!!!!
+        boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
     else:
-        # for the len of the virtual board check the logical state of each button, 0 or 1
-        # and set it to the physical board,  WHITE or OFF
-        for i in range(16):
-            if x.theBoard[i] == 1:
-                trellis.pixels[i] = x.WHITE
-            elif x.theBoard[i] == 0:
-                trellis.pixels[i] = x.OFF
-        trellis.sync()
-        time.sleep(0.02)
-
-# print(x.theBoard, "before reset")
-# x.theBoard = x.clearArray()
-# print(x.theBoard)
+        for i in range(len(boardDriver.theBoard)):
+            theTrellis.pixels[i] = boardDriver.theBoard[i]
+    theTrellis.sync()

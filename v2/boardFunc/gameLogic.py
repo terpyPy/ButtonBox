@@ -1,4 +1,4 @@
-def redrawBoard(theBoard, event):
+def gameLogic(theBoard, event, onColor, offColor):
     #
     # dict that contains the button numbers and corresponding neighbor cells 
     neighbors = {
@@ -22,16 +22,16 @@ def redrawBoard(theBoard, event):
     keyPressed = event.number
     newBoard = theBoard
     # turn off the pressed key
-    newBoard[keyPressed] = 0
+    newBoard[keyPressed] = offColor
     # get the range length of the list of neighbor cells 
     for i in range(len(neighbors[keyPressed])):
         # pass the neighbors dict the key(which is the button pressed number)
         # and the pass i for the index of the value of each neighbor cell and turn it on
-        if theBoard[neighbors[keyPressed][i]] == 0:
-            newBoard[neighbors[keyPressed][i]] = 1
-        elif theBoard[neighbors[keyPressed][i]] == 1:
-            newBoard[neighbors[keyPressed][i]] = 0
+        if theBoard[neighbors[keyPressed][i]] == offColor:
+            newBoard[neighbors[keyPressed][i]] = onColor
+        elif theBoard[neighbors[keyPressed][i]] == onColor:
+            newBoard[neighbors[keyPressed][i]] = offColor
 
-    print(event.number)
+    print(keyPressed)
     # return the new board
     return newBoard
