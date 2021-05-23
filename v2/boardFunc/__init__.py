@@ -1,2 +1,2 @@
-from .resetBoard import resetBoard
-from .gameLogic import gameLogic
+from .gameOptions import games
+from .neighborGame import neighborGame

@@ -1,4 +1,4 @@
-def gameLogic(theBoard, event, onColor, offColor):
+def neighborGame(theBoard, event, onColor, offColor):
     #
     # dict that contains the button numbers and corresponding neighbor cells 
     neighbors = {
