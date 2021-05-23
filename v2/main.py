@@ -1,12 +1,11 @@
 import boardStateDriver
-import time
+from time import sleep
 from adafruit_seesaw.neopixel import NeoPixel
 import board
 from board import SCL, SDA
 import digitalio
 import busio
 from adafruit_neotrellis.neotrellis import NeoTrellis
-from random import randrange
 
 # create the i2c object for the trellis
 i2c_bus = busio.I2C(SCL, SDA)   
@@ -26,15 +25,15 @@ for i in range(16):
     theTrellis.activate_key(i, NeoTrellis.EDGE_RISING)
     theTrellis.callbacks[i] = boardDriver.doGameLogic
 
-boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
+boardDriver.theBoard = boardDriver.setRandom()
 
 while True:
-    time.sleep(0.02)
+    sleep(0.02)
     # if you press the nuke button reset
     if not button.value:
         boardDriver.clearArray()
-        boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
+        boardDriver.setRandom()
     else:
-        for i in range(len(boardDriver.theBoard)):
+        for i in range(16):
             theTrellis.pixels[i] = boardDriver.theBoard[i]
     theTrellis.sync()
