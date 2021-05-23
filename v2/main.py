@@ -8,6 +8,7 @@ import busio
 from adafruit_neotrellis.neotrellis import NeoTrellis
 from random import randrange
 
+
 # create the i2c object for the trellis
 i2c_bus = busio.I2C(SCL, SDA)   
 
@@ -27,14 +28,21 @@ for i in range(16):
     theTrellis.callbacks[i] = boardDriver.doGameLogic
 
 boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
-
+x = 0
 while True:
+    if x >= 16:
+        x = 0
     time.sleep(0.02)
+    boardDriver.simMyBoard(x)
     # if you press the nuke button reset
     if not button.value:
         boardDriver.clearArray()
-        boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
     else:
-        for i in range(len(boardDriver.theBoard)):
+        for i in range(16):
+            
             theTrellis.pixels[i] = boardDriver.theBoard[i]
+            if boardDriver.GREEN in boardDriver.theBoard:
+                boardDriver.clearArray()
+                boardDriver.theBoard[randrange(0,15)] = boardDriver.onColor
+    x += 1
     theTrellis.sync()

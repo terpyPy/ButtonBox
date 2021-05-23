@@ -10,14 +10,9 @@ class boardState():
     # this class is a representation of the board logically, it takes the initial gamestate as an arg
     def __init__(self, theBoard):
         self.OFF = (0, 0, 0)
-        self.RED = (25, 0, 0)
-        self.YELLOW = (25, 15, 0)
+        
         self.GREEN = (0, 25, 0)
-        self.CYAN = (0, 25, 25)
-        self.BLUE = (0, 0, 25)
-        self.PURPLE = (18, 0, 25)
-        self.WHITE = (127, 127, 127)
-
+        self.WHITE = (12, 12, 12)
         self.onColor = self.WHITE
         self.offColor = self.OFF
 
@@ -34,7 +29,7 @@ class boardState():
 
     def debounce(self):#first press will always be smaller then second
         timebetween = int(time.time()) - self.timePressed
-        if timebetween >= 0.2:
+        if timebetween >= 0.3:
             return 'tooFast' # return toFast str if true
         else:
             return True # else return true, the time between pressed is valid
@@ -44,14 +39,19 @@ class boardState():
            return True
 
     # random pattern game init
-    def randomArray(self):
-        # return the value of getRandomPatt
-        return boardFunc.randGamePattern(self.patternSize)
+    def simMyBoard(self,buttonPressed):
+    # get a copy of the board to modify and return
+    
+        for buttonValue in range(16):
+            # if button value == buttonPressed
+            if buttonValue == buttonPressed:
+                self.doGameLogic(buttonPressed)
+            
 
     def clearArray(self):
         self.theBoard = boardFunc.resetBoard(self.theBoard, self.offColor, self.onColor)
     # add an optional argument for simulation which sets event = to a normal int value not .numbers
-    def doGameLogic(self, event, sim=False):
+    def doGameLogic(self, event, sim=True):
         self.timePressed = time.time()
         # takes theboard and "event" or pressed button as an argument,
         # and returns the updated board state
