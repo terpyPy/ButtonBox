@@ -9,6 +9,5 @@ class games:
         
     def update(self):
         if self.game != None:
-            self.gameList = {'neighborGame': boardFunc.neighborGame(self.theBoard ,self.event, self.onColor, self.offColor)}
-            self.gameList[self.game] = self.theBoard
-            return self.theBoard
+            gameList = {'neighborGame':boardFunc.neighborGame(self.theBoard ,self.event, self.onColor, self.offColor) if self.game == 'neighborGame'else None}
+            return  gameList[self.game]
