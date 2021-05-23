@@ -12,13 +12,15 @@ class boardState():
     def __init__(self, theBoard):
         self.OFF = (0, 0, 0)
         self.GREEN = (0, 25, 0)
-        self.WHITE = (127, 127, 127)
+        self.WHITE = (10, 10, 10)
 
         self.onColor = self.WHITE
         self.offColor = self.OFF
 
         # gives boardState access to the theBoard and patternSize arg passed from init 
         self.theBoard = theBoard
+        # number of elements in the board
+        self.boardSize = len(self.theBoard)
         
         # the init method takes one argument, the game board
         self.previousTimePressed = None
@@ -40,15 +42,18 @@ class boardState():
 
     def setRandom(self):
         newBoard = self.theBoard
-        self.theBoard[randrange(0,15)] = self.onColor
+        # set a random value in theBoard to be onColor
+        self.theBoard[randrange(0,self.boardSize-1)] = self.onColor
         return newBoard
 
     def checkWin(self, allLit):
+        # check if the board is cleared and the previous state had all neighbors lit up
+        # TODO this is redundant because the only way to clear the board is pressing a button whose neighbors are all lit up!
         if (self.onColor not in self.theBoard) and allLit:
            return True
 
     def clearArray(self):
-        self.theBoard = boardFunc.resetBoard()
+        self.theBoard = [self.offColor] * self.boardSize
         
     def doGameLogic(self, event):
         self.timePressed = time()
