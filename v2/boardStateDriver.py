@@ -1,5 +1,5 @@
 import boardFunc
-from time import time
+from time import sleep, time
 from random import randrange
 class boardState():
 
@@ -28,10 +28,14 @@ class boardState():
 
 
     def debounce(self):#first press will always be smaller then second
-        timebetween = int(time()) - int(self.timePressed)
-        if timebetween >= 0.4:
-            return 'tooFast' # return toFast str if true
+        #TODO pass in time pressed from loop in main.py
+        sleep(0.02)
+        timebetween = time() - self.timePressed
+        if timebetween >= 0.2:
+            print("debounce failed, time between:",timebetween)
+            return False # return toFast str if true
         else:
+            print("debounce passed, time between:",timebetween)
             return True # else return true, the time between pressed is valid
 
     def setRandom(self):
@@ -40,7 +44,7 @@ class boardState():
         return newBoard
 
     def checkWin(self, allLit):
-        if self.onColor not in self.theBoard:
+        if (self.onColor not in self.theBoard) and allLit:
            return True
 
     def clearArray(self):
@@ -50,6 +54,8 @@ class boardState():
         self.timePressed = time()
         # takes theboard and "event" or pressed button as an argument,
         # and returns the updated board state
+        print("")
+        print("doGameLogic start time",self.timePressed)
         if self.debounce():
             print("event number:",event.number)
             print("prev pressed:",self.previousButtonPressed)

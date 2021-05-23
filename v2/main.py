@@ -31,6 +31,7 @@ while True:
     sleep(0.02)
     # if you press the nuke button reset
     if not button.value:
+        boardDriver.previousButtonPressed = None
         boardDriver.clearArray()
         boardDriver.setRandom()
     else:
